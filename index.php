@@ -6,13 +6,14 @@
 	<link rel="stylesheet" href="css/reset.css" type="text/css" media="all">
 	<link rel="stylesheet" href="css/layout.css" type="text/css" media="all">
 	<link rel="stylesheet" href="css/style.css" type="text/css" media="all">
+	<link rel="stylesheet" href="css/style1.css" type="text/css" media="all">
 	<link rel="stylesheet" href="css/jquery-ui.css" type="text/css" media="all">
 	<script type="text/javascript" src="js/cufon-yui.js"></script>
 	<script type="text/javascript" src="js/cufon-replace.js"></script> 
 	<script type="text/javascript" src="js/Myriad_Pro_italic_600.font.js"></script>
 	<script type="text/javascript" src="js/Myriad_Pro_italic_400.font.js"></script>
 	<script type="text/javascript" src="js/Myriad_Pro_400.font.js"></script>
-	<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/jquery-ui.js"></script>
 	<script type="text/javascript" src="js/Script.js"></script>
 	<!--[if lt IE 9]>
@@ -34,8 +35,26 @@
 						<ul id="top_nav">
 							<li><a href="index.php"><img src="images/img1.gif" alt=""></a></li>
 							<li><a href="index-4.php"><img src="images/img2.gif" alt=""></a></li>
-							<li class="bg_none"><a href="#"><img src="images/img3.gif" alt=""></a></li>
+							<li class="bg_none"><a href="#" id="loginButton"><img src="images/img3.gif" alt=""></a></li>
 						</ul>
+							<div style="clear:both"></div>
+			                <div id="loginBox">
+			                    <form id="loginForm">
+			                        <fieldset id="body">
+			                            <fieldset>
+			                                <label for="email">Email</label>
+			                                <input type="text" name="email" id="email" />
+			                            </fieldset>
+			                            <fieldset>
+			                                <label for="password">Contrase&ntilde;a</label>
+			                                <input type="password" name="password" id="password" />
+			                            </fieldset>
+			                            <input type="submit" id="login" value="Entrar" />
+			                            <label for="checkbox"><input type="checkbox" id="checkbox" />Recu&eacute;rdame</label>
+			                        </fieldset>
+			                        <span><a href="#">Perdiste tu contrase&ntilde;a?</a></span>
+			                    </form>
+			                </div>
 					</nav>
 					<nav>
 						<ul id="menu">
@@ -80,16 +99,49 @@
 					</div>
 					<div class="wrapper">
 						Origen:
-						<div class="bg"><input type="text" class="search" required name="Origen" required class="input input1" placeholder="Ingrese su Origen"></div>
+						<div class="bg"><input type="text" id="search" required name="Origen" required class="input input1" placeholder="Ingrese su Origen"></div>
+							<?php
+								require_once "Conexion/estructuraConsulta.php";
+
+								$Consulta_Ciudad = new estructuraModelo();
+								$clientes = $Consulta_Ciudad->get_sql('select ciudad from aeropuerto order by ciudad');
+
+								$arreglo_php = array();
+								//var_dump($clientes);
+								if (count ($clientes) < 0) {  
+         							      array_push($arreglo_php, "No hay datos");
+								                           }
+								else{
+								      foreach ($clientes as $row)
+								       {
+								         array_push($arreglo_php, $row['ciudad']);          
+								       }
+								    }
+							?>
+							<script type="text/javascript">
+										 $(function(){
+										    var autocompletar = new Array();
+										    <?php //Esto es un poco de php para obtener lo que necesitamos
+										     for($p = 0;$p < count($arreglo_php); $p++){ ?> //usamos count para saber cuantos elementos hay 
+										       autocompletar.push('<?php echo $arreglo_php[$p]; ?>');
+										     <?php } ?>
+										     $("#search").autocomplete({ //Usamos el ID de la caja de texto donde lo queremos
+										       source: autocompletar //Le decimos que nuestra fuente es el arreglo
+										     });
+										     $("#search1").autocomplete({ //Usamos el ID de la caja de texto donde lo queremos
+										       source: autocompletar //Le decimos que nuestra fuente es el arreglo
+										     });
+										  });
+							</script>
 					</div>
 					<div class="wrapper">
 						Destino:
-						<div class="bg"><input type="text" class="search" required name="destino" required class="input input1" placeholder="Ingrese su Destino"</div>
+						<div class="bg"><input type="text" id="search1" required name="destino" required class="input input1" placeholder="Ingrese su Destino"></div>
 					</div>
 					<div class="wrapper">
 						Partida:
 						<div class="wrapper">
-							<div class="bg left"><input type="text" required name="fechap" id="datepicker" class="input input2" placeholder="dd/mm/yyyy"></div>
+							<div class="bg left"><input type="text" required name="fechap" id="txtStartDate" class="input input2" placeholder="dd/mm/yyyy"></div>
 							<div class="bg right"><input type="text" class="input input2" placeholder="12:00am"></div>
 						</div>
 					</div>
@@ -97,15 +149,14 @@
 						<div id="ocultarDiv" style="display:block">
 							Regreso:
 						<div class="wrapper">
-							<div class="bg left"><input type="text" required name="fechar" id="datepicker1" class="input input2" placeholder="dd/mm/yyyy"></div>
+							<div class="bg left"><input type="text" name="fechar" id="txtEndDate" class="input input2" placeholder="dd/mm/yyyy"></div>
 							<div class="bg right"><input type="text" class="input input2" placeholder="12:00am"></div>
 						</div></div>
 					</div>
 					<div class="wrapper_1">
 						Adulto(s):
 						<div class="bg left">
-							<select>
-							  <option value="0">0</option>
+							<select name="cantAdul">
 		                      <option value="1">1</option>
 		                      <option value="2">2</option>
 		                      <option value="3">3</option>
@@ -116,7 +167,7 @@
 					<div class="wrapper_1">
 						Menor(es):
 						<div class="bg left">
-							<select>
+							<select name="cantMen">
 							  <option value="0">0</option>
 		                      <option value="1">1</option>
 		                      <option value="2">2</option>

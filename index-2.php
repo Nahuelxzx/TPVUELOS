@@ -6,13 +6,15 @@
 	<link rel="stylesheet" href="css/reset.css" type="text/css" media="all">
 	<link rel="stylesheet" href="css/layout.css" type="text/css" media="all">
 	<link rel="stylesheet" href="css/style.css" type="text/css" media="all">
+	<link rel="stylesheet" href="css/jquery-ui.css" type="text/css" media="all">
 	<script type="text/javascript" src="js/cufon-yui.js"></script>
-	<script type="text/javascript" src="js/Script.js"></script>
 	<script type="text/javascript" src="js/cufon-replace.js"></script> 
 	<script type="text/javascript" src="js/Myriad_Pro_italic_600.font.js"></script>
 	<script type="text/javascript" src="js/Myriad_Pro_italic_400.font.js"></script>
 	<script type="text/javascript" src="js/Myriad_Pro_400.font.js"></script>
-	<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/jquery-ui.js"></script>
+	<script type="text/javascript" src="js/Script.js"></script>
 	<!--[if lt IE 9]>
 		<script type="text/javascript" src="http://info.template-help.com/files/ie6_warning/ie6_script_other.js"></script>
 		<script type="text/javascript" src="js/html5.js"></script>
@@ -80,27 +82,135 @@
 			</div>
 		</article>
 		<article class="col2 pad_left1">
-			<h2>Formulario de Contacto</h2>
-			<form id="ContactForm" action="">
+			<h2>Completa tus datos</h2>
+			<form id="PagoForm" action="">
 				<div>
-					<div class="wrapper">
-						<div class="bg"><input type="text" class="input" /></div>
-						Nombre :<br />
-					</div>
-					<div class="wrapper">
-						<div class="bg"><input type="text" class="input" /></div>
-						Apellido :<br />
-					</div>
-					<div class="wrapper">
-						<div class="bg">
-							<textarea name="textarea" cols="1" rows="1"></textarea>
+					<?php
+					  session_start();
+
+					  for ($i= 1; $i <= $_SESSION['adultos'] ; $i++) {
+					  	echo "<div class='marker'>";
+					    echo "<strong class='rotulo'> Pasajero Adulto $i: </strong>";
+					    echo "<div class='wrapper'>";
+					    echo "Apellido:"; 
+					    echo "<div class='bg'><input type='text' class='input' placeholder='Ingrese Apellido'/></div>";
+					    echo "</div>";
+					    echo "<div class='wrapper'>";
+					    echo "Nombre:"; 
+					    echo "<div class='bg'><input type='text' class='input' placeholder='Ingrese Nombre'/></div>";
+					    echo "</div>";
+					    echo "<div class='wrapper'>";
+					    echo "Fecha de Nacimiento:"; 
+					    echo "<div class='bg'><input type='text' class='input' placeholder='Ingrese Fecha de Nacimiento'/></div>";
+					    echo "</div>";
+					    echo "<div class='wrapper'>";
+					    echo "Sexo:"; 
+					    echo "<div class='radio right'><label>F<input type='radio' name='sexo'/></label><label>M<input type='radio' name='sexo'/></label></div>";
+					    echo "</div>";
+					    echo "<div class='wrapper'>";
+					    echo "Tipo de Documento:"; 
+					    echo "<div class='bg'><select><option value='dni'>DNI</option><option value='le'>L.E</option><option value='lc'>L.C</option></select></div>";
+					    echo "</div>";
+					    echo "<div class='wrapper'>";
+					    echo "Numero de Documento:"; 
+					    echo "<div class='bg'><input type='text' class='input' placeholder='Ingrese Numero de Documento'/></div>";
+					    echo "</div>";
+					    echo "<div class='wrapper'>";
+					    echo "Pais de Emision:"; 
+					    echo "<div class='bg'><input type='text' class='input' placeholder='Ingrese pais'/></div>";
+					    echo "</div>"; 
+					    echo "</div>"; 
+					  }
+					  for ($f= 1; $f <= $_SESSION['menores']; $f++) { 
+					    echo "<div class='marker'>";
+					    echo "<strong> Pasajero Menor $f: </strong>";
+					    echo "<div class='wrapper'>";
+					    echo "Apellido:"; 
+					    echo "<div class='bg'><input type='text' class='input' placeholder='Ingrese Apellido'/></div>";
+					    echo "</div>";
+					    echo "<div class='wrapper'>";
+					    echo "Nombre:"; 
+					    echo "<div class='bg'><input type='text' class='input' placeholder='Ingrese Nombre'/></div>";
+					    echo "</div>";
+					    echo "<div class='wrapper'>";
+					    echo "Fecha de Nacimiento:"; 
+					    echo "<div class='bg'><input type='text' class='input' placeholder='Ingrese Fecha de Nacimiento'/></div>";
+					    echo "</div>";
+					    echo "<div class='wrapper'>";
+					    echo "Sexo:"; 
+					    echo "<div class='radio right'><label>F<input type='radio' name='sexo'/></label><label>M<input type='radio' name='sexo'/></label></div>";
+					    echo "</div>";
+					    echo "<div class='wrapper'>";
+					    echo "Tipo de Documento:"; 
+					    echo "<div class='bg'><select><option value='dni'>DNI</option><option value='le'>L.E</option><option value='lc'>L.C</option></select></div>";
+					    echo "</div>";
+					    echo "<div class='wrapper'>";
+					    echo "Numero de Documento:"; 
+					    echo "<div class='bg'><input type='text' class='input' placeholder='Ingrese Numero de Documento'/></div>";
+					    echo "</div>";
+					    echo "<div class='wrapper'>";
+					    echo "Pais de Emision:"; 
+					    echo "<div class='bg'><input type='text' class='input' placeholder='Ingrese pais'/></div>";
+					    echo "</div>";
+					    echo "</div>";
+					  }
+					?>
+					<strong> Formas de Pago:  </strong>
+					<div class='wrapper'>
+						Coutas:
+						<div class='radio right'>
+							<label> 1 Pago <input type='radio' name='couta'/></label>
+							<label> 6 Pagos <input type='radio' name='couta'/></label>
 						</div>
-						Mensaje :<br />
 					</div>
-					<a href="#" class="button1" onClick="document.getElementById('ContactForm').submit()">Enviar</a>
-					<a href="#" class="button1" onClick="document.getElementById('ContactForm').reset()">Cancelar</a>
+					<div class='wrapper'>
+						Tarjeta:
+						<div class='bg'>
+							<select>
+								<option value='visa'> Visa </option>
+								<option value='american'> American Express </option>
+								<option value='master'> Master Card </option>
+							</select>
+						</div>
+					</div>
+					<div class='wrapper'>
+						Numero de Tarjeta:
+						<div class='bg'><input type='text' class='input' placeholder="Ingrese los 16 digitos"/></div>
+					</div>
+					<div class='wrapper'>
+						Vencimiento:
+						<div class='bg'><input type='text' class='input' placeholder='Ingrese Vencimiento'/></div>
+					</div>
+					<div class='wrapper'>
+						Nombre Titular:
+						<div class='bg'><input type='text' class='input' placeholder="Ingrese Nombre Titular"/></div>
+					</div>
+					<div class='wrapper'>
+						Dni Titular:
+						<div class='bg'><input type='text' class='input' placeholder="Ingrese Dni Titular"/></div>
+					</div>
+					<div class='wrapper'>
+						Sexo: 
+					    <div class='radio right'>
+					    	<label> F <input type='radio' name='sexo'/></label>
+					    	<label> M <input type='radio' name='sexo'/></label>
+					    </div>
+					</div>
+					<strong> E-Mail de Contacto:  </strong>
+					<div class='wrapper'>
+						E-Mail:
+						<div class='bg'><input type='text' class='input' placeholder="Ingrese E-Mail"/></div>
+					</div>
+					<div class='wrapper'>
+						Verificar E-Mail:
+						<div class='bg'><input type='text' class='input' placeholder="Re-Ingrese E-Mail"/></div>
+					</div>
+					<a href="#" class="button2" onClick="document.getElementById('ContactForm').submit()">Enviar</a>
+					<a href="#" class="button2" onClick="document.getElementById('ContactForm').reset()">Cancelar</a>
 				</div>
+				<div class="clr"></div>
 			</form>
+
 		</article>
 	</section>
 <!-- / content -->
