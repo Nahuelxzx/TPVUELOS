@@ -98,14 +98,14 @@
 					<div class="wrapper">
 						Partida:
 						<div class="wrapper">
-							<div class="bg left"><input type="text" name="fechap" id="datepicker" class="input input2" placeholder="<?php if (isset($_POST['fechap'])) { echo $_POST['fechap'];} ?>"></div>
+							<div class="bg left"><input type="text" name="fechap" id="txtStartDate" class="input input2" placeholder="<?php if (isset($_POST['fechap'])) { echo $_POST['fechap'];} ?>"></div>
 							<div class="bg right"><input type="text" class="input input2" value="12:00am" onblur="if(this.value=='') this.value='12:00am'" onFocus="if(this.value =='12:00am' ) this.value=''"></div>
 						</div>
 					</div>
 					<div class="wrapper">
 						<div id="ocultarDiv" style="display:block">Regreso:
 						<div class="wrapper">
-							<div class="bg left"><input type="text" name="fechar" id="datepicker1" class="input input2" placeholder="<?php if (isset($_POST['fechar'])) { echo $_POST['fechar']; } ?>"></div>
+							<div class="bg left"><input type="text" name="fechar" id="txtEndDate" class="input input2" placeholder="<?php if (isset($_POST['fechar'])) { echo $_POST['fechar']; } ?>"></div>
 							<div class="bg right"><input type="text" class="input input2" value="12:00am" onblur="if(this.value=='') this.value='12:00am'" onFocus="if(this.value =='12:00am' ) this.value=''"></div>
 						</div></div>
 					</div>
@@ -152,16 +152,22 @@
 		              <ul><li><strong> ROTULOS IDA </strong></li></ul>
 			          	<?php
 				          	require_once "Conexion/estructuraConsulta.php";
-				          	echo "<br><br>";
+				          
 							$estructuraConsulta = new estructuraModelo();
 							$var1 = $_POST['Origen'];
 							$var2 = $_POST['destino'];
-							//var_dump($var1);
+
+
+							$varFecha1= $_POST['fechap'];
+							echo "<br><br> FECHAAAAAAAAAAAAAAAAAAAAAA";
+							var_dump($varFecha1);
 							echo "<br><br>";
+
+
 							$clientes = $estructuraConsulta->get_sql('select A1.Ciudad as CiudadOrigen, A2.Ciudad as CiudadDestino,
 							V1.Hora_Salida as HoraSalida, V1.Hora_Llegada as HoraLlegada from vuelo V1 inner join aeropuerto A1
 							on V1.Aepto_Origen = A1.idAepto inner join aeropuerto A2 on V1.Aepto_Destino = A2.idAepto
-							where A2.Provincia = "' . $var1 . '" and A1.Provincia= "' . $var2 . '" and V1.Fecha_Salida = "2014-05-10" ');
+							where A1.Ciudad = "' . $var1 . '" and A2.Ciudad = "' . $var2 . '" and V1.Fecha_Salida = "2014-05-10" ');
 							//var_dump($clientes);
 							echo "<table border='1' rules=all>\n";		
 
