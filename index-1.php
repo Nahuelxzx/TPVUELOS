@@ -152,8 +152,11 @@
 		              <ul><li><strong> ROTULOS IDA </strong></li></ul>
 			          	<?php
 				          	require_once "Conexion/estructuraConsulta.php";
+				          	include "archivos/resultadosVuelos.php";
+
+				          	/******* VALIDAR PRIMERO QUE HAYA SELECCIONADO ALGO EN ORIGEN Y DESTINO SINO DARA ERROR//
 				          
-							$estructuraConsulta = new estructuraModelo();
+							/*$estructuraConsulta = new estructuraModelo();
 							$var1 = $_POST['Origen'];
 							$var2 = $_POST['destino'];
 
@@ -192,7 +195,8 @@
 						 }
 
 						echo "</table>\n";
-						echo "<br><br>";
+						echo "<br><br>";*/
+
 					    ?>
 		              <ul><label><li><input type="radio" name="i1"></li><li> Sale: $horaSale </li><li> Llega: $horaLlegada </li><li> $TiempoViaje </li><li> Directo </li><li> $LineaAvion </li></label></ul> 
 		              <ul><label><li><input type="radio" name="i1"></li><li> Sale: $horaSale </li><li> Llega: $horaLlegada </li><li> $TiempoViaje </li><li> Directo </li><li> $LineaAvion </li></label></ul> 

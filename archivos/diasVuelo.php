@@ -3,11 +3,16 @@
 setlocale(LC_ALL,"es_ES@euro","es_ES","esp","es");
 //Cargo los dias de la semana en un array en donde 1-Lunes y 7-Domingo el ''- Es el 0 pero no lo tenemos en cuenta.
 $dias = array('','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo');
+
+$varFecha1= $_POST['fechap'];
 //Obtengo el valor en string de la fecha seleccionada, si es lunes, martes, etc.
-$fecha = $dias[date('N', strtotime('2014-06-26'))]; 
+//$fecha = $dias[date('N', strtotime('2014-06-26'))]; 
+$fecha = $dias[date('N', strtotime($varFecha1))]; 
+echo "</br>FECHA AHORA : " . $fecha;
+
 //Inicio el array
 $arraydia = array();
-
+$pos=55;
 //Asigno segun el dia un valor en un array para compararlo con el binario recibido
 switch ($fecha) {
     case 'Lunes':
@@ -43,26 +48,16 @@ switch ($fecha) {
     case 'Domingo':
         $arraydia[6]=1;
         $pos=6;
-        echo "i es igual a 6 : \t" . $arraydia[6];
+        echo "i es igual a 6 " . $arraydia[6];
         break;
-                }
-
-    //Hago la busqueda de ese vuelo y veo que dias realiza el vuelo en base al array 1- Si , 0- No
-    $bin = 1111100;
-    echo "Funcion binarios</br>" . $bin;
-    
+                }   
+    //$bin = 1111100;
+    //echo "<h2>Funcion binarios</br></h2>" . $pos;    
     //Con esto obtengo un array que separa los 1 y los 0 de forma $var[0]=1,$var[1]=1, etc.                
     $arraybinarios=str_split($bin);
-
-     for ($i=0; $i < 7; $i++) { 
+    //Hago la busqueda de ese vuelo y veo que dias realiza el vuelo en base al array 1- Si , 0- No
+    /* for ($i=0; $i < 7; $i++) { 
      echo "</br>";
      echo $arraybinarios[$i];
-                              }
-
-     if ($arraydia[$pos]==$arraybinarios[$pos])
-     {
-      // Hago la consulta sino muestro mensaje!
-     }  
-
-
+                              }    */
 ?>
